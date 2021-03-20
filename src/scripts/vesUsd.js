@@ -13,11 +13,10 @@ const vesUsd = (async () => {
 
     return vesUsd;
   });
-  console.log(rate);
 
   await await browser.close();
 
-  return rate;
+  return { rate };
 })();
 
 module.export = vesUsd;
