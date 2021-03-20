@@ -1,7 +1,7 @@
-import { config } from 'dotenv';
+const { config } = require('dotenv');
 config();
 
-export default {
+module.exports = {
   URI: process.env.DB_URI,
   PORT: process.env.PORT
 };

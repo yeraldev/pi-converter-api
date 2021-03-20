@@ -1,22 +1,29 @@
 const puppeteer = require('puppeteer');
 
-const vesUsd = (async () => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
+const vesUsd = async () => {
+  try {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
 
-  await page.goto('http://www.bcv.org.ve/');
+    await page.goto('http://www.bcv.org.ve/');
 
-  await page.waitForSelector('#dolar');
+    await page.waitForSelector('#dolar');
 
-  const rate = await page.evaluate(() => {
-    const vesUsd = document.querySelector('#dolar strong').innerText;
+    const rate = await page.evaluate(() => {
+      const res = document.querySelector('#dolar strong').innerText;
+      const vesUsd = res.replace('.', '').replace('.', '').replace(',', '.');
 
-    return vesUsd;
-  });
+      return vesUsd;
+    });
 
-  await await browser.close();
+    await await browser.close();
 
-  return { rate };
-})();
+    console.log(rate);
 
-module.export = vesUsd;
+    return { name: 'vesUsd', value: rate };
+  } catch (e) {
+    throw e;
+  }
+};
+
+module.exports = vesUsd;

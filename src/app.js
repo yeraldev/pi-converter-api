@@ -1,8 +1,7 @@
-import express from 'express';
-import config from './config';
-import cors from 'cors';
-// import morgan from 'morgan';
-import ratesRoutes from './routes/rates.routes';
+const express = require('express');
+const config = require('./config');
+const cors = require('cors');
+// const morgan =require('morgan');
 
 // Init
 const app = express();
@@ -12,8 +11,9 @@ app.set('port', config.PORT || 3000);
 
 // Middlewares
 app.use(cors());
+app.use(express.json());
 
 // Routes
-app.use('/api/rates', ratesRoutes);
+app.use('/api/rates', require('./routes/rates.routes'));
 
-export default app;
+module.exports = app;

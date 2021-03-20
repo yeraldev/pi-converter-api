@@ -1,12 +1,8 @@
 const Web3 = require('web3');
 
-const web3 = new Web3(
-  'https://mainnet.infura.io/v3/f652140e1d67412cb85624d56edf9c1c'
-);
-
 const web3 = new Web3('https://connect.pichain.io');
 
-const piABI = [
+const abi = [
   {
     constant: true,
     inputs: [],
@@ -97,20 +93,26 @@ const piABI = [
   }
 ];
 
-const pi = '0x0000000000000000000000000000000000000011';
+const address = '0x0000000000000000000000000000000000000011';
 const issuing = '0x0000000000000000000000000000000000000010';
 const btc = '0x4c3c844b751c18299932dcd18a3032bd3481d61a';
 
-const piContract = new web3.eth.Contract(piABI, pi);
+const piContract = new web3.eth.Contract(abi, address);
 
-const piValue = async () => {
-  const piAmount = await piContract.methods.emisorTokenBalance(issuing).call();
+const piBtc = async () => {
+  try {
+    const piAmount = await piContract.methods
+      .emisorTokenBalance(issuing)
+      .call();
 
-  const btcAmount = await piContract.methods.emisorTokenBalance(btc).call();
+    const btcAmount = await piContract.methods.emisorTokenBalance(btc).call();
 
-  const value = parseFloat(btcAmount / piAmount).toFixed(8);
+    const rate = parseFloat(btcAmount / piAmount).toFixed(8);
 
-  return { piBtc: value };
+    return { name: 'piBtc', value: rate };
+  } catch (e) {
+    throw e;
+  }
 };
 
-module.export = piValue;
+module.exports = piBtc;
