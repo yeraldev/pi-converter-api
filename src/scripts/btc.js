@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 
-const btcRate = async () => {
+const btc = async () => {
   try {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -9,19 +9,21 @@ const btcRate = async () => {
 
     await page.waitForSelector('.dDoNo');
 
-    const rate = await page.evaluate(() => {
+    const value = await page.evaluate(() => {
       const res = document.querySelector('.dDoNo span').innerText;
-      const btcUsd = res.replace(',', '');
+      const btc = res.replace(',', '');
 
-      return btcUsd;
+      return btc;
     });
 
     await browser.close();
 
-    return { name: 'btcUsd', value: rate };
+    return new Promise((resolve) =>
+      resolve({ name: 'Bitcoin', pair: 'USD', value: value })
+    );
   } catch (e) {
     throw e;
   }
 };
 
-module.exports = btcRate;
+module.exports = btc;

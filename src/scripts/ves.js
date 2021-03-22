@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 
-const vesUsd = async () => {
+const ves = async () => {
   try {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -9,21 +9,21 @@ const vesUsd = async () => {
 
     await page.waitForSelector('#dolar');
 
-    const rate = await page.evaluate(() => {
+    const value = await page.evaluate(() => {
       const res = document.querySelector('#dolar strong').innerText;
-      const vesUsd = res.replace('.', '').replace('.', '').replace(',', '.');
+      const ves = res.replace('.', '').replace('.', '').replace(',', '.');
 
-      return vesUsd;
+      return ves;
     });
 
     await await browser.close();
 
-    console.log(rate);
-
-    return { name: 'vesUsd', value: rate };
+    return new Promise((resolve) =>
+      resolve({ name: 'Bolívar', pair: 'USD', value: value })
+    );
   } catch (e) {
     throw e;
   }
 };
 
-module.exports = vesUsd;
+module.exports = ves;
