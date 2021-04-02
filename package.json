@@ -1,8 +1,10 @@
 {
-  "name": "piConverter-api",
+  "name": "pi-converter-api",
   "version": "1.0.0",
   "description": "server designed to obtain data related to the exchange rates of the cryptocurrency Picripto in relation to Bitcoin, the US Dollar and the Venezuelan Bolívar in order to simultaneously monitor and provide the values ​​to a web app that serves to calculate amounts between the currencies and cryptocurrencies",
-  "main": "index.js",
+  "engines": {
+    "node": "15.13.0"
+    }, 
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon  src/index.js"
