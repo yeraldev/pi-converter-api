@@ -1,11 +1,10 @@
 {
-  "name": "Capi",
+  "name": "piConverter-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "server designed to obtain data related to the exchange rates of the cryptocurrency Picripto in relation to Bitcoin, the US Dollar and the Venezuelan Bolívar in order to simultaneously monitor and provide the values ​​to a web app that serves to calculate amounts between the currencies and cryptocurrencies",
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon  src/index.js"
   },
   "keywords": [],
