@@ -5,12 +5,12 @@ const ves = async () => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
-    await page.goto('http://www.bcv.org.ve/');
+    await page.goto('https://es.investing.com/currencies/usd-vef');
 
-    await page.waitForSelector('#dolar');
+    await page.waitForSelector('.main-current-data');
 
     const value = await page.evaluate(() => {
-      const res = document.querySelector('#dolar strong').innerText;
+      const res = document.querySelector('#last_last').innerText;
       const ves = res.replace('.', '').replace('.', '').replace(',', '.');
 
       return ves;
@@ -19,7 +19,7 @@ const ves = async () => {
     await await browser.close();
 
     return new Promise((resolve) =>
-      resolve({ name: 'Bolívar', pair: 'USD', value: value })
+      resolve({ name: 'Bolívar venezolano', pair: 'USD', value: value })
     );
   } catch (e) {
     throw e;

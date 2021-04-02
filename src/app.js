@@ -17,4 +17,12 @@ app.use(morgan('dev'));
 // Routes
 app.use('/api/currencies', require('./routes/currencies.routes'));
 
+// Handling Errors
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(400).json({
+    error: err.message
+  });
+});
+
 module.exports = app;

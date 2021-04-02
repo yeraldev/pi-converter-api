@@ -5,13 +5,13 @@ const btc = async () => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
-    await page.goto('https://www.google.com/search?q=btc+usd');
+    await page.goto('https://es.investing.com/crypto/bitcoin/btc-usd');
 
-    await page.waitForSelector('.dDoNo');
+    await page.waitForSelector('.main-current-data');
 
     const value = await page.evaluate(() => {
-      const res = document.querySelector('.dDoNo span').innerText;
-      const btc = res.replace(',', '');
+      const res = document.querySelector('#last_last').innerText;
+      const btc = res.replace('.', '').replace(',', '.');
 
       return btc;
     });
