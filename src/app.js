@@ -1,13 +1,13 @@
 const express = require('express');
-const config = require('./config');
 const cors = require('cors');
+const PORT = process.env.PORT;
 // const morgan = require('morgan');
 
 // Init
 const app = express();
 
 // Setting
-app.set('port', config.PORT || 3000);
+app.set('port', PORT || 3000);
 
 // Middlewares
 app.use(cors());
