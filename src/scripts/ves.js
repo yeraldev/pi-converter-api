@@ -4,6 +4,7 @@ const ves = async () => {
   try {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
+    await page.setDefaultNavigationTimeout(0);
 
     await page.goto('https://es.investing.com/currencies/usd-vef');
 
