@@ -11,7 +11,7 @@ const ves = async () => {
 
     await page.goto('https://es.investing.com/currencies/usd-vef');
 
-    await page.waitForSelector('.main-current-data');
+    // await page.waitForSelector('.main-current-data');
 
     const value = await page.evaluate(() => {
       const res = document.querySelector('#last_last').innerText;
