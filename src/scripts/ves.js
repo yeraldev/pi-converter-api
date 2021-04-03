@@ -9,13 +9,12 @@ const ves = async () => {
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(0);
 
-    await page.goto('https://es.investing.com/currencies/usd-vef');
-
-    // await page.waitForSelector('.main-current-data');
+    await page.goto('http://www.bcv.org.ve/');
 
     const value = await page.evaluate(() => {
-      const res = document.querySelector('#last_last').innerText;
+      const res = document.querySelector('#dolar strong').innerText;
       const ves = res.replace('.', '').replace('.', '').replace(',', '.');
+      console.log(ves);
 
       return ves;
     });

@@ -11,8 +11,6 @@ const btc = async () => {
 
     await page.goto('https://es.investing.com/crypto/bitcoin/btc-usd');
 
-    // await page.waitForSelector('.main-current-data');
-
     const value = await page.evaluate(() => {
       const res = document.querySelector('#last_last').innerText;
       const btc = res.replace('.', '').replace(',', '.');
@@ -31,5 +29,4 @@ const btc = async () => {
   }
 };
 
-btc();
 module.exports = btc;
