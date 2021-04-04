@@ -100,21 +100,15 @@ const btc = '0x4c3c844b751c18299932dcd18a3032bd3481d61a';
 const piContract = new web3.eth.Contract(abi, address);
 
 const pi = async () => {
-  try {
-    const piAmount = await piContract.methods
-      .emisorTokenBalance(issuing)
-      .call();
+  const piAmount = await piContract.methods.emisorTokenBalance(issuing).call();
 
-    const btcAmount = await piContract.methods.emisorTokenBalance(btc).call();
+  const btcAmount = await piContract.methods.emisorTokenBalance(btc).call();
 
-    const value = parseFloat(btcAmount / piAmount).toFixed(8);
+  const value = parseFloat(btcAmount / piAmount).toFixed(8);
 
-    return new Promise((resolve) =>
-      resolve({ name: 'Pi', pair: 'BTC', value: value })
-    );
-  } catch (e) {
-    throw e;
-  }
+  return new Promise((resolve) =>
+    resolve({ name: 'Pi', pair: 'BTC', value: value })
+  );
 };
 
 module.exports = pi;
