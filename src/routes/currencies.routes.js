@@ -8,8 +8,6 @@ const {
   getVes
 } = require('../controllers/currencies.controllers');
 
-router.get('/', getCurrencies);
-
 router.get('/pi', getPi);
 
 router.get('/btc', getBtc);
