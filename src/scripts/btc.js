@@ -16,7 +16,7 @@ const btc = async () => {
   const value = await page.evaluate(() => {
     // const res = document.querySelector('#last_last').innerText;
     const res = document.querySelector('.dDoNo span').innerText;
-    const btc = res.replace('.', '').replace(',', '.');
+    const btc = res.replace(',', '');
 
     return btc;
   });
