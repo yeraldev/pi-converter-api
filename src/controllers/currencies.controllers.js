@@ -17,7 +17,6 @@ currenciesCtrl.getCurrencies = async (req, res, next) => {
 currenciesCtrl.getPi = async (req, res, next) => {
   try {
     const _pi = await pi();
-    console.log(_pi);
     res.status(200).json(_pi);
   } catch (e) {
     next(e);
