@@ -1,33 +1,26 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require("puppeteer")
+const cheerio = require("cheerio")
+const axios = require("axios")
 
 const ves = async () => {
   try {
-    const browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
-    const page = await browser.newPage();
-    await page.setDefaultNavigationTimeout(0);
+    const url = "http://www.bcv.org.ve/"
 
-    await page.goto('https://es.investing.com/currencies/usd-vef');
+    const selector =
+      "#dolar > div > div > div.col-sm-6.col-xs-6.centrado > strong"
 
-    await page.waitForSelector('.main-current-data');
+    const { data } = await axios(url)
 
-    const value = await page.evaluate(() => {
-      const res = document.querySelector('#last_last').innerText;
-      const ves = res.replace('.', '').replace('.', '').replace(',', '.');
+    const $ = cheerio.load(data)
 
-      return ves;
-    });
+    const vesValue = $(selector).text().trim()
 
-    await await browser.close();
+    const value = parseFloat(vesValue.replace(",", ".")).toFixed(2)
 
-    return new Promise((resolve) =>
-      resolve({ name: 'Bolívar venezolano', pair: 'USD', value: value })
-    );
+    return { name: "Bolívar venezolano", pair: "USD", value: value }
   } catch (e) {
-    throw e;
+    throw new Error(e)
   }
-};
+}
 
-module.exports = ves;
+module.exports = ves

@@ -1,33 +1,16 @@
-const puppeteer = require('puppeteer');
+const axios = require("axios")
 
 const btc = async () => {
   try {
-    const browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
-    const page = await browser.newPage();
-    await page.setDefaultNavigationTimeout(0);
+    const url = `https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd`
 
-    await page.goto('https://es.investing.com/crypto/bitcoin/btc-usd');
+    const res = await axios(url)
+    const value = res.data.bitcoin.usd
 
-    await page.waitForSelector('.main-current-data');
-
-    const value = await page.evaluate(() => {
-      const res = document.querySelector('#last_last').innerText;
-      const btc = res.replace('.', '').replace(',', '.');
-
-      return btc;
-    });
-
-    await browser.close();
-
-    return new Promise((resolve) =>
-      resolve({ name: 'Bitcoin', pair: 'USD', value: value })
-    );
+    return { name: "Bitcoin", pair: "USD", value: value }
   } catch (e) {
-    throw e;
+    throw new Error(e)
   }
-};
+}
 
-module.exports = btc;
+module.exports = btc
